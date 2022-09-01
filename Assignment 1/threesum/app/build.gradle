@@ -34,5 +34,11 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass = 'threesum.App'
+    mainClass = 'threesum.ThreeSum'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'threesum.ThreeSum'
+    }
 }

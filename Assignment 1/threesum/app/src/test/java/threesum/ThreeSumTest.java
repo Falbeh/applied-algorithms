@@ -6,9 +6,9 @@ package threesum;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class AppTest {
+public class ThreeSumTest {
     @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
+        ThreeSum classUnderTest = new ThreeSum();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
 }

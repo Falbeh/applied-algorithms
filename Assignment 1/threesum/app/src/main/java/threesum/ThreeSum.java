@@ -5,10 +5,22 @@ package threesum;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ThreeSum {
-    public String getGreeting() {
-        return "Hello World!";
+    public static int[] readData() {
+        Scanner s = new Scanner(System.in);
+        int[] x = null;
+        try {
+            int n = s.nextInt();
+            x = new int[n];
+            for (int i = 0; i < n; ++i) {
+                x[i] = s.nextInt();
+            }
+        } finally {
+            s.close();
+        }
+        return x;
     }
 
     // Cubic solution
@@ -73,7 +85,7 @@ public class ThreeSum {
         }
         return null;
     }
-    
+
     // Wrong Hashmap solution where && j < k is removed
     public static int[] threeSumHashMap1(int[] x) {
         int n = x.length;
@@ -87,13 +99,6 @@ public class ThreeSum {
                 int b = x[j];
                 int c = -a - b;
                 Integer k = H.get(c);
-
-                System.out.println("a: " + a);
-                System.out.println("b: " + b);
-                System.out.println("c: " + c);
-
-                System.out.println("j: " + k);
-                System.out.println("k: " + k);
                 if (k != null) {
                     System.out.println(a + b + c);
                     return new int[] { a, b, c };
@@ -104,7 +109,22 @@ public class ThreeSum {
     }
 
     public static void main(String[] args) {
-        System.out.println(new ThreeSum().getGreeting());
-        threeSumHashMap1(new int[] { 0, -2, 0 });
+        int[] x = readData();
+        int[] y = null;
+
+        if ("cubic".equals(args[0])) {
+            y = threeSumCubic(x);
+        } else if ("quadratic".equals(args[0])) {
+            y = threeSumQuadratic(x);
+        } else if ("hashmap".equals(args[0])) {
+            y = threeSumHashMap(x);
+        }
+
+        if (y == null) {
+            System.out.println("null");
+        } else {
+            System.out.println(String.format("%d %d %d",
+                 y[0], y[1], y[2]));
+        }
     }
 }

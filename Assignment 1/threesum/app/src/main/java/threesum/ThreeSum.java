@@ -73,8 +73,38 @@ public class ThreeSum {
         }
         return null;
     }
+    
+    // Wrong Hashmap solution where && j < k is removed
+    public static int[] threeSumHashMap1(int[] x) {
+        int n = x.length;
+        HashMap<Integer, Integer> H = new HashMap<Integer, Integer>();
+        for (int i = 0; i < n; ++i) {
+            H.put(x[i], i);
+        }
+        for (int i = 0; i < n; ++i) {
+            int a = x[i];
+            for (int j = i + 1; j < n; ++j) {
+                int b = x[j];
+                int c = -a - b;
+                Integer k = H.get(c);
+
+                System.out.println("a: " + a);
+                System.out.println("b: " + b);
+                System.out.println("c: " + c);
+
+                System.out.println("j: " + k);
+                System.out.println("k: " + k);
+                if (k != null) {
+                    System.out.println(a + b + c);
+                    return new int[] { a, b, c };
+                }
+            }
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         System.out.println(new ThreeSum().getGreeting());
+        threeSumHashMap1(new int[] { 0, -2, 0 });
     }
 }

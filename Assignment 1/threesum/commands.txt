@@ -1,0 +1,4 @@
+To build run: ./gradlew build
+To run with jar package: java -jar app/build/libs/app.jar
+
+Running tests: ./gradlew test

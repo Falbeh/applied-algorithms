@@ -4,11 +4,91 @@
 package threesum;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertArrayEquals;;
 
 public class ThreeSumTest {
-    @Test public void appHasAGreeting() {
-        ThreeSum classUnderTest = new ThreeSum();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    @Test
+    public void testCubic() {
+        // Should return null
+        assertNull(ThreeSum.threeSumCubic(
+            new int[] { 1, 2, 3 }
+        ));
+        assertNull(ThreeSum.threeSumCubic(
+            new int[] { 1, 2, 3, 4 }
+        ));
+
+        // Should not return null
+        assertNotNull(ThreeSum.threeSumCubic(new int[] { 1, 2, -3 }));
+        assertNotNull(ThreeSum.threeSumCubic(new int[] { 1, 2, 3, -3, 2 }));
+
+        // Should return: new int[] { 1, 2, -3 } 
+        assertArrayEquals(new int[] { 1, 2, -3 },
+            ThreeSum.threeSumCubic(new int[] { 1, 2, -3 }
+        ));
+        // Should return: new int[] { 10, 30, -40 } 
+        assertArrayEquals(new int[] { 10, 30, -40 },
+            ThreeSum.threeSumCubic(new int[] { 10, 20, 30, -40 }
+        ));
+    }
+
+    @Test
+    public void testQuadratic() {
+        // Should return null
+        assertNull(ThreeSum.threeSumQuadratic(
+            new int[] { 1, 2, 3 }
+        ));
+        assertNull(ThreeSum.threeSumQuadratic(
+            new int[] { 1, 2, 3, 4 }
+        ));
+
+        // Should not return null
+        assertNotNull(ThreeSum.threeSumQuadratic(new int[] { 1, 2, -3 }));
+        assertNotNull(ThreeSum.threeSumQuadratic(new int[] { 1, 2, 3, -3, 2 }));
+
+        // Should return: new int[] { -3, 1, 2 }
+        assertArrayEquals(new int[] { -3, 1, 2 },
+            ThreeSum.threeSumQuadratic(new int[] { 1, 2, -3 }
+        ));
+
+        // Should return: new int[] { -4, 1, 3 }
+        assertArrayEquals(new int[] { -4, 1, 3 },
+            ThreeSum.threeSumQuadratic(new int[] { 1, 2, 3, -4 }
+        ));
+    }
+
+    @Test
+    public void testHashMap() {
+        // Should return null
+        assertNull(ThreeSum.threeSumHashMap(
+            new int[] { 1, 2, 3 }
+        ));
+
+        assertNull(ThreeSum.threeSumHashMap(
+            new int[] { 1, 2, 3, 4 }
+        ));
+
+        // Should not return null
+        assertNotNull(ThreeSum.threeSumHashMap(new int[] { 1, 2, -3 }));
+        assertNotNull(ThreeSum.threeSumHashMap(new int[] { 1, 2, 3, -3, 2 }));
+
+        // Should return: new int[] { 1, 2, -3 }
+        assertArrayEquals(new int[] { 1, 2, -3 },
+            ThreeSum.threeSumHashMap(new int[] { 1, 2, -3 }
+        ));
+
+        // Should return: new int[] { 1, 3, -4 }
+        assertArrayEquals(new int[] { 1, 3, -4 },
+            ThreeSum.threeSumHashMap(new int[] { 1, 2, 3, -4 }
+        ));
+    }
+
+    // Should return null but does not
+    @Test
+    public void testHashMap1() {
+        assertNotNull(ThreeSum.threeSumHashMap1(
+            new int[] { 5, 0, 0 }
+        ));
     }
 }

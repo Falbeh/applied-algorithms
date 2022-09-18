@@ -43,7 +43,7 @@ INPUT_DATA: Dict[int, List[List[int]]] = {
 
 INSTANCES: List[Tuple[str, str]] = [
     ('cubic', '../foursum/app/build/libs/app.jar'),
-    ('quadratic', '../foursum/app/build/libs/app.jar'),
+    ('quartic', '../foursum/app/build/libs/app.jar'),
     ('hashmap', '../foursum/app/build/libs/app.jar')
 ]
 

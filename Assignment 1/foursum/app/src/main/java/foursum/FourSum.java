@@ -6,10 +6,8 @@
 
 package foursum;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class FourSum {
@@ -31,27 +29,6 @@ public class FourSum {
     // Cubic solution
     public static int[] fourSumCubic(int[] x) {
         int n = x.length;
-        for (int i = 0; i < n; ++i) {
-            int a = x[i];
-            for (int j = i + 1; j < n; ++j) {
-                int b = x[j];
-                for (int k = j + 1; k < n; ++k) {
-                    int c = x[k];
-                    for (int l = k + 1; l < n; ++l) {
-                        int d = x[l];
-                        if (a + b + c + d == 0) {
-                            return new int[] { a, b, c, d };
-                        }
-                    }   
-                }
-            }
-        }
-        return null;
-    }
-
-    // Quartic solution
-    public static int[] fourSumQuartic(int[] x) {
-        int n = x.length;
         int[] y = x.clone();
         Arrays.sort(y);
         for (int i = 0; i < n; ++i) {
@@ -70,6 +47,28 @@ public class FourSum {
                     } else {
                         --right;
                     }
+                }
+            }
+        }
+        return null;
+        
+    }
+
+    // Quartic solution
+    public static int[] fourSumQuartic(int[] x) {
+        int n = x.length;
+        for (int i = 0; i < n; ++i) {
+            int a = x[i];
+            for (int j = i + 1; j < n; ++j) {
+                int b = x[j];
+                for (int k = j + 1; k < n; ++k) {
+                    int c = x[k];
+                    for (int l = k + 1; l < n; ++l) {
+                        int d = x[l];
+                        if (a + b + c + d == 0) {
+                            return new int[] { a, b, c, d };
+                        }
+                    }   
                 }
             }
         }

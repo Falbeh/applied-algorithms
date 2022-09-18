@@ -47,7 +47,7 @@ def write_latex_tabular(res: np.ndarray, filename: str):
 
 def plot_algorithms(res: Dict[str, np.ndarray], filename: str):
     (fig, ax) = plt.subplots()
-    algorithms = ['cubic', 'quadratic', 'hashmap']
+    algorithms = ['cubic', 'quartic', 'hashmap']
     for algorithm in algorithms:
         ns = res[algorithm][:, 0]
         means = res[algorithm][:, 1]
@@ -69,6 +69,6 @@ if __name__ == '__main__':
             compute_mean_std(raw_results[algorithm])
 
     write_latex_tabular(refined_results['cubic'], 'foursum_cubic_table.tex')
-    write_latex_tabular(refined_results['quadratic'], 'foursum_quartic_table.tex')
+    write_latex_tabular(refined_results['quartic'], 'foursum_quartic_table.tex')
     write_latex_tabular(refined_results['hashmap'], 'foursum_hashmap_table.tex')
     plot_algorithms(refined_results, 'foursum_data_plot.pdf')

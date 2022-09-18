@@ -26,5 +26,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'foursum.App'
+    mainClass = 'foursum.FourSum'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'foursum.FourSum'
+    }
 }

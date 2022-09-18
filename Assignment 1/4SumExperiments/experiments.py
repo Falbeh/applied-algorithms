@@ -42,9 +42,9 @@ INPUT_DATA: Dict[int, List[List[int]]] = {
 }
 
 INSTANCES: List[Tuple[str, str]] = [
-    ('cubic', '../threesum/app/build/libs/app.jar'),
-    ('quadratic', '../threesum/app/build/libs/app.jar'),
-    ('hashmap', '../threesum/app/build/libs/app.jar')
+    ('cubic', '../foursum/app/build/libs/app.jar'),
+    ('quadratic', '../foursum/app/build/libs/app.jar'),
+    ('hashmap', '../foursum/app/build/libs/app.jar')
 ]
 
 ##########################
@@ -95,17 +95,6 @@ def benchmark(algorithm: str, jar: str) -> \
         except subprocess.TimeoutExpired:
             break
     return results
-
-# if __name__ == '__main__':
-#    print(run_java('threesum/app/build/libs/app.jar',
-#                  'cubic','3\n1 2 3'))
-#   print(run_java('threesum/app/build/libs/app.jar',
-#                   'cubic','3\n1 2 -3'))
-#    print(measure('cubic',
-#               'threesum/app/build/libs/app.jar',
-#               INPUT_DATA[30][0]))
-#    print(benchmark('cubic',
-#               'threesum/app/build/libs/app.jar'))
 
 if __name__ == '__main__':
     with open('results.csv', 'w') as f:

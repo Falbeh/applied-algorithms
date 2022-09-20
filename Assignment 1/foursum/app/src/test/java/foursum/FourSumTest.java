@@ -23,13 +23,14 @@ public class FourSumTest {
         assertNotNull(FourSum.fourSumCubic(new int[] { 1, 2, 3, -6 }));
         assertNotNull(FourSum.fourSumCubic(new int[] { 1, 2, 3, -3, -2 }));
 
-        // Should return: new int[] { 1, 2, 3, -6 }
-        assertArrayEquals(new int[] { 1, 2, 3, -6 },
+        // Should return: new int[] { -6, 1, 2, 3 }
+        assertArrayEquals(new int[] { -6, 1, 2, 3 },
             FourSum.fourSumCubic(new int[] { 1, 2, 3, -6 }
         ));
-        // Should return: new int[] { 10, 30, 40, -80 } 
-        assertArrayEquals(new int[] { 10, 30, 40, -80 },
-            FourSum.fourSumCubic(new int[] { 10, 20, 30, 40, -80 }
+
+        // Should return: new int[] { -14, 1, 3, 10 }
+        assertArrayEquals(new int[] { -14, 1, 3, 10 },
+            FourSum.fourSumCubic(new int[] { -14, 1, 3, 10 }
         ));
     }
 
@@ -47,14 +48,13 @@ public class FourSumTest {
         assertNotNull(FourSum.fourSumQuartic(new int[] { 1, 2, 3, -6 }));
         assertNotNull(FourSum.fourSumQuartic(new int[] { 1, 2, 3, -3, -2 }));
 
-        // Should return: new int[] { -6, 1, 2, 3 }
-        assertArrayEquals(new int[] { -6, 1, 2, 3 },
+        // Should return: new int[] { 1, 2, 3, -6 }
+        assertArrayEquals(new int[] { 1, 2, 3, -6 },
             FourSum.fourSumQuartic(new int[] { 1, 2, 3, -6 }
         ));
-
-        // Should return: new int[] { -14, 1, 3, 10 }
-        assertArrayEquals(new int[] { -14, 1, 3, 10 },
-            FourSum.fourSumQuartic(new int[] { -14, 1, 3, 10 }
+        // Should return: new int[] { 10, 30, 40, -80 } 
+        assertArrayEquals(new int[] { 10, 30, 40, -80 },
+            FourSum.fourSumQuartic(new int[] { 10, 20, 30, 40, -80 }
         ));
     }
 

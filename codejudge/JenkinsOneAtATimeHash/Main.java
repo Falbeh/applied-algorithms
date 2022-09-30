@@ -11,11 +11,11 @@ public class Main {
             // Getting the char at i's place, example: a = 97
             hash = hash + s.charAt(i);
             hash = hash + (hash << 10);
-            hash = hash ^ (hash >> 6);
+            hash = hash ^ (hash >>> 6);
             i++;
         }
         hash = hash + (hash << 3);
-        hash = hash ^ (hash >> 11);
+        hash = hash ^ (hash >>> 11);
         hash = hash + (hash << 15);
         System.out.println(Integer.toHexString(hash));
     }

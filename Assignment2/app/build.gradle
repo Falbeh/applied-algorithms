@@ -26,5 +26,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'assignment2.App'
+    mainClass = 'assignment2.EvaluateHashAndRho'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'assignment2.EvaluateHashAndRho'
+    }
+} 

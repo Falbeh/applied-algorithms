@@ -1,0 +1,1 @@
+// To run jar package: java -jar app/build/libs/app.jar

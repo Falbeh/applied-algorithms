@@ -1,22 +1,11 @@
+package assignment2; 
+
 import java.util.Scanner;
 
-public class Hash {
+public class EvaluateHashAndRho {
 
-    // Method to reverse bits not used
-    public static int reverseBits(int x) {
-        int rev = 0;
-
-        while (x > 0) {
-            rev <<= 1;
-            if ((x & 1) == 1) {
-                rev ^= 1;
-            }
-            x >>= 1;
-        }
-        return rev;
-    }
-
-    public static void hashing(int x) {
+    // Hash method from Assignment2/Hash.java
+    public static String hashing(int x) {
         // Creating matrix A
         int A[] = new int[] {0x21ae4036, 0x32435171, 0xac3338cf, 0xea97b40c, 0x0e504b22, 0x9ff9a4ef, 0x111d014d, 0x934f3787, 
                                 0x6cd079bf, 0x69db5c31, 0xdf3c28ed, 0x40daf2ad, 0x82a5891c, 0x4659c7b0, 0x73dc0ca8, 0xdad3aca2, 
@@ -31,7 +20,7 @@ public class Hash {
             // System.out.println(A[i]);
         }
 
-        // Getting array bits as String of bits
+        // Getting array bits as String of bits reversed
         String binaryString = "";
         for (int i = 31; i >= 0; i--) {
             binaryString = binaryString + A[i];
@@ -44,21 +33,32 @@ public class Hash {
         while (hexString.length() < 8) {
             hexString = "0" + hexString;
         }
-        System.out.println(hexString);
+        return hexString;
 
     } 
 
-    public static void main(String[] args) {
-        
-        // Taking input
-        Scanner in = new Scanner(System.in);
+    // Rho method from Assignment2/Rho.java
+    public static void rho(String input) {
+        int inputRead = Integer.parseUnsignedInt(input, 16);
+            
+        // Finding first 1 bit from left
+        int firstOneBit = 1;
 
-        while (in.hasNextLine()) {
-            int input = Integer.parseUnsignedInt(in.nextLine(), 16); // D -> 13 (1101)
-     
-            // Hashing
-            hashing(input);
+        // Arithmetic right shift until 1 is found starting from left-most bit
+        for (int i = 32; i > 0; i--) {
+            if ((inputRead>>i-1 & 1) == 1) {
+                break;
+            }
+            firstOneBit++;
         }
-        in.close();
+        System.out.println(firstOneBit);
+
+    }
+    
+    
+    public static void main(String[] args) {
+        for (int i = 1; i <= 1000000; i++) {
+            rho(hashing(i));
+        }
     }
 }

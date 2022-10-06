@@ -69,12 +69,22 @@ public class HyperLogLog {
         return sum;
     }
 
+    public static int emptyRegisters(int[] M) {
+        int sum = 0;
+        for (int i = 0; i < M.length; i++) {
+            if (M[i] == 0) {
+                ++sum;
+            }
+        }
+        return sum;
+    }
+
     // HyperLogLog method
-    public static void hyper(List<Integer> Y, int m) {
+    public static double hyper(List<Integer> Y, int m) {
 
         // calculate alpha m
         double alpha = 0.7213/(1 + 1.079/m);
-        int[] M = new int[m-1];
+        int[] M = new int[m];
 
         // initialize registers
         for (int i = 0; i < m; i++) {
@@ -95,7 +105,20 @@ public class HyperLogLog {
         double nHat = alpha*(m*m)*(Math.pow(sumM(M), -1));
 
         // Number of empty registers 
-        
+        int V = emptyRegisters(M);
+
+        // Apply linear counting for small estimates
+        if (nHat <= (5/2)*m && V > 0) {
+            return m*Math.log((m/V));
+        }
+
+        // Large range correction
+        if (nHat > (1/30)*Math.pow(2, 32)) {
+            nHat = -Math.pow(2, 32)*Math.log((1-(nHat/Math.pow(2,32))));
+        }
+
+        return nHat;
+
     }
 
     public static void main(String[] args) { 
@@ -107,7 +130,7 @@ public class HyperLogLog {
         }
         
         // Call hyperLogLog
-        hyper(stream, 1024);
+        System.out.println(hyper(stream, 1024)); 
         
     }       
 }

@@ -26,11 +26,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'assignment2.EvaluateHashAndRho'
+    mainClass = 'assignment2.HyperLogLog'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'assignment2.EvaluateHashAndRho'
+        attributes 'Main-Class': 'assignment2.HyperLogLog'
     }
 } 

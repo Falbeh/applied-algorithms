@@ -176,8 +176,8 @@ public class HyperLogLog {
         }
        
         String collect256 = hyperResults256.stream().collect(Collectors.joining("\n"));
-        String collect1024 = hyperResults256.stream().collect(Collectors.joining("\n"));
-        String collect4096 = hyperResults256.stream().collect(Collectors.joining("\n"));
+        String collect1024 = hyperResults1024.stream().collect(Collectors.joining("\n"));
+        String collect4096 = hyperResults4096.stream().collect(Collectors.joining("\n"));
        
         writer256.write(collect256);
         writer1024.write(collect1024);
@@ -185,8 +185,6 @@ public class HyperLogLog {
         writer256.close();
         writer1024.close();
         writer4096.close();
-
-       
 
     }
 }

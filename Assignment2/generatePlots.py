@@ -5,6 +5,7 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt # type: ignore
 import numpy as np # type: ignore
 from math import sqrt
+from csv import reader
 
 ## Calculate standard deviation
 def standard_deviationLow(m, deviation):
@@ -49,5 +50,31 @@ def write_latex_tabular(filename: str):
         f.write(r'\end{tabular}' + '\n')
 
 
+## GENERATE HISTOGRAM PLOT WITH RESULTS ## 
+def generate_plots(filename: str):
+    list = []
+
+    with open(filename, 'r') as read_obj:
+        csv_reader = reader(read_obj)
+        for row in csv_reader: 
+            for x in row:
+                list.append(float(x))
+                print(x)
+
+    list = sorted(list, key = float)
+
+    plt.hist(list, density=False, bins=24)  # density=False makes count
+    
+    plt.ylabel('Count')
+    plt.xlabel('p(h(x))')
+
+    ## SHOW PLOT
+    plt.show()
+
+
+
 if __name__ == '__main__':
     write_latex_tabular("hyperResults/standardDeviationTable.tex")
+    ## generate_plots('hyperResults/hyper256.csv')
+    ##generate_plots('hyperResults/hyper1024.csv')
+    generate_plots('hyperResults/hyper4096.csv')

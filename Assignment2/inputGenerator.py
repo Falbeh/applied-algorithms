@@ -12,8 +12,7 @@ import csv
 TIMEOUT = 30
 
 def generateDistinctN(seed, n: int):
-    seed = random.sample(range(1, 2**28), 1)
-    random.seed(seed[0])
+    random.seed(seed)
     data = random.sample(range(1, 2**28), n)
     return data
 
@@ -27,18 +26,23 @@ def generateDistinctN(seed, n: int):
 
 
 if __name__ == '__main__':
-    with open('results.csv', 'w') as f:
-        writer = csv.DictWriter(f,
-            fieldnames=['n'])
-        writer.writeheader()
-        input: list = generateDistinctN(314158, 1000000)
+    initialSeed = 314158
+    random.seed(initialSeed)
+    seeds = [random.randint(0,1000000) for x in range(1000)]
+    for i in range(0,len(seeds)):
+        seed = seeds[i]
+        with open('data/results' + str(i) + '.csv', 'w') as f:
+            writer = csv.DictWriter(f,
+                fieldnames=['n'])
+            input: list = generateDistinctN(seed, 200_000)
 
-        resultsInt = []
-        for (n) in input:
-            resultsInt.append(int(n))
-            writer.writerow({
-                'n': n
-        }) 
+            resultsInt = []
+            for (n) in input:
+                resultsInt.append(int(n))
+                writer.writerow({
+                    'n': n
+            }) 
     
-        
-    
+        ## m = 1024 , n = 10^6 (990000)
+        ## m = 2048 , n = 10^6 (995000)
+     

@@ -3,10 +3,12 @@ package assignment2;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class HyperLogLog {
 
@@ -102,7 +104,7 @@ public class HyperLogLog {
     }
 
     // HyperLogLog method
-    public static double hyper(List<Integer> Y, int m) {
+    public static Double hyper(List<Integer> Y, int m) {
 
         // calculate alpha m
         double alpha = 0.7213 / (1 + 1.079 / m);
@@ -144,22 +146,47 @@ public class HyperLogLog {
     }
 
     public static void main(String[] args) throws Exception {
-        
-        List<Integer> stream = new ArrayList<>();
-        String line = "";
-        try {
-            // parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("results.csv"));
-            while ((line = br.readLine()) != null) // returns a Boolean value
-            {
-                stream.add(Integer.parseInt(line));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Writing hyperLogLog results to files to generate standard deviation plots from
+        FileWriter writer256 = new FileWriter("hyperResults/hyper256.csv");
+        FileWriter writer1024 = new FileWriter("hyperResults/hyper1024.csv");
+        FileWriter writer4096 = new FileWriter("hyperResults/hyper4096.csv");
+        // Result lists
+        List<String> hyperResults256 = new ArrayList<>();
+        List<String> hyperResults1024 = new ArrayList<>();
+        List<String> hyperResults4096 = new ArrayList<>();
 
-        // Call hyperLogLog
-        System.out.println(hyper(stream, 1024));
+        // Read the 1000 csv files with random numbers
+        for (int i = 0; i <= 999; i++) {
+            List<Integer> stream = new ArrayList<>();
+            String line = "";
+            try {
+                // parsing a CSV file into BufferedReader class constructor
+                BufferedReader br = new BufferedReader(new FileReader("data/results" + i + ".csv"));
+                while ((line = br.readLine()) != null) // returns a Boolean value
+                {
+                    stream.add(Integer.parseInt(line));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // Call hyperLogLog with 3 different register sizes
+            hyperResults256.add((hyper(stream, 256).toString()));
+            hyperResults1024.add((hyper(stream, 1024).toString()));
+            hyperResults4096.add((hyper(stream, 4096).toString()));
+        }
+       
+        String collect256 = hyperResults256.stream().collect(Collectors.joining("\n"));
+        String collect1024 = hyperResults256.stream().collect(Collectors.joining("\n"));
+        String collect4096 = hyperResults256.stream().collect(Collectors.joining("\n"));
+       
+        writer256.write(collect256);
+        writer1024.write(collect1024);
+        writer4096.write(collect4096);
+        writer256.close();
+        writer1024.close();
+        writer4096.close();
+
+       
 
     }
 }

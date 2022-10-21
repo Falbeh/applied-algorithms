@@ -78,7 +78,6 @@ def measure(algorithm: str, jar: str,
 ## BENCHMARKING ##
 ##################
 
-
 def benchmark(algorithm: str, jar: str) -> \
     List[Tuple[int, float]]:
     results: List[Tuple[int, float]] = list()

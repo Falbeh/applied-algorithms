@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CanPlace {
-    static int nSize;
+    // static int nSize;
 
-    public static boolean canPlace(List<List<Integer>> sudoku, int i, int j, int k) {
+    public static boolean canPlace(List<List<Integer>> sudoku, int i, int j, int k, int nSize) {
         boolean canPlace = false;
         // Check if cell is already filled
         if (sudoku.get(i - 1).get(j - 1) == 0) { // -1 because of index of array starting from 0 and not 1
@@ -47,7 +47,7 @@ public class CanPlace {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        /* Scanner in = new Scanner(System.in);
         nSize = in.nextInt();
         int mQueries = in.nextInt();
 
@@ -73,6 +73,6 @@ public class CanPlace {
             } else {
                 System.out.println("FALSE");
             }
-        }
+        } */
     }
 }

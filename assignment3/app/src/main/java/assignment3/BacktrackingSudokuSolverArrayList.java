@@ -1,7 +1,10 @@
 package assignment3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+// ** This version is using Java collection List and ArrayList ** //
 // To run: java -jar app/build/libs/app.jar from root
 
 // ** INPUT EXAMPLE ** // 
@@ -11,11 +14,11 @@ import java.util.Scanner;
 // 0 0 3 0
 // 0 0 0 0
 
-public class BacktrackingSudokuSolver {
+public class BacktrackingSudokuSolverArrayList {
+    static int nSize;
 
-    public static boolean backtrackingSudokuSolver(int[][] sudoku, int i, int j, int nSize) {
-        // Check if sudoku is complete (out of grid)
-        if (i == sudoku.length+1 && j == 1) {
+    public static boolean backtrackingSudokuSolveArrayList(List<List<Integer>> sudoku, int i, int j) {
+        if (i == sudoku.size()+1 && j == 1) {
             return true;
         }
         
@@ -24,7 +27,7 @@ public class BacktrackingSudokuSolver {
         int jHat;
 
         // Find next cell
-        if (j < sudoku.length) {
+        if (j < nSize*nSize) {
             iHat = i;
             jHat = j+1;
         }
@@ -34,29 +37,29 @@ public class BacktrackingSudokuSolver {
         }
 
         // System.out.println(i + " " + j);
-        for (int k = 1; k <= sudoku.length; k++) {
+        for (int k = 1; k <= nSize*nSize; k++) {
             
             // check if cell is empty 
-            if (sudoku[i-1][j-1] != 0) {
-                if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize)) {
+            if (sudoku.get(i-1).get(j-1) != 0) {
+                if (backtrackingSudokuSolveArrayList(sudoku, iHat, jHat)) {
                     return true;
                 }
                 else {
-                    sudoku[i-1][j-1] = 0;
+                    sudoku.get(i-1).set(j-1,0);
                 }
             } 
 
             // Check if number can be placed
-            if (CanPlace.canPlace(sudoku, i, j, k, nSize)) {
+            if (CanPlaceArrayList.canPlaceArrayList(sudoku, i, j, k, nSize)) {
                 // System.out.println(k);
-                sudoku[i-1][j-1] = k; 
+                sudoku.get(i-1).set(j-1,k); 
 
                 // Call method recursively
-                if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize)) {
+                if (backtrackingSudokuSolveArrayList(sudoku, iHat, jHat)) {
                     return true;
                 }
                 else {
-                    sudoku[i-1][j-1] = 0;
+                    sudoku.get(i-1).set(j-1,0);
                 }
             }
         } 
@@ -65,15 +68,17 @@ public class BacktrackingSudokuSolver {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int nSize = in.nextInt();
+        nSize = in.nextInt();
 
-        int[][] sudoku = new int[nSize*nSize][nSize*nSize];
+        List<List<Integer>> sudoku = new ArrayList<>();
 
         // Adding sudoku elements from stdin to sudoku list of lists
         for (int i = 0; i < nSize * nSize; i++) {
+            List<Integer> row = new ArrayList<>();
             for (int j = 0; j < nSize * nSize; j++) {
-                sudoku[i][j] = in.nextInt();
+                row.add(in.nextInt());
             }
+            sudoku.add(row);
         }
         in.close();
 
@@ -82,11 +87,11 @@ public class BacktrackingSudokuSolver {
         for (int i = 0; i < nSize*nSize; i++) {
             if (feasible == true) {
                 for (int j = 0; j < nSize*nSize; j++) {
-                    if (sudoku[i][j] != 0) {
-                        int k = sudoku[i][j];
-                        sudoku[i][j] = 0;
-                        if (CanPlace.canPlace(sudoku, i+1, j+1, k, nSize)) {
-                            sudoku[i][j] = k;
+                    if (sudoku.get(i).get(j) != 0) {
+                        int k = sudoku.get(i).get(j);
+                        sudoku.get(i).set(j,0);
+                        if (CanPlaceArrayList.canPlaceArrayList(sudoku, i+1, j+1, k, nSize)) {
+                            sudoku.get(i).set(j, k);
                         }
                         else {
                             feasible = false;
@@ -97,15 +102,14 @@ public class BacktrackingSudokuSolver {
             }
         }
 
-        
         if (feasible) {
             // Run backtracking on
-            System.out.println(backtrackingSudokuSolver(sudoku, 1, 1, nSize)); 
+            System.out.println(backtrackingSudokuSolveArrayList(sudoku, 1, 1)); 
 
             // Print solved sudoku
-            for(int i = 0; i < sudoku.length; i++) {
-                for (int j = 0; j < sudoku.length; j++) {
-                    System.out.print(sudoku[i][j] + " "); ;
+            for(List<Integer> l : sudoku) {
+                for (int i : l) {
+                    System.out.print(i + " ");
                 }
                 System.out.println();
             }
@@ -121,9 +125,3 @@ public class BacktrackingSudokuSolver {
 // 2314
 // 1432
 // 3241
-
-// ISSUE - this should not be solvable but the algorithm changes clues
-// 4 1 2 3
-// 2 3 1 4
-// 1 2 3 0
-// 0 0 0 0

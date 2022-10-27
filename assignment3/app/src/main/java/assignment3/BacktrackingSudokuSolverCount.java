@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 // To run: java -jar app/build/libs/app.jar from root
 
-public class BacktrackingSudokuSolver {
+public class BacktrackingSudokuSolverCount {
+    static int count;
 
     // Check if clues are consistent with constraints (can also check solved sudoku as it is equivalent to a sudoku filled with clues)
-    public static boolean isSolved(int[][] sudoku, int nSize) {
+    public static boolean isFeasible(int[][] sudoku, int nSize) {
         boolean feasible = true;
         for (int i = 0; i < nSize*nSize; i++) {
             if (feasible == true) {
@@ -29,10 +30,12 @@ public class BacktrackingSudokuSolver {
         return feasible;
     }
 
-    public static boolean backtrackingSudokuSolver(int[][] sudoku, int i, int j, int nSize) {
+    public static int backtrackingSudokuSolver(int[][] sudoku, int i, int j, int nSize) {
+
         // Check if sudoku is complete (out of grid)
         if (i == sudoku.length+1 && j == 1) {
-            return true;
+            count++;
+            return count;
         }
         
         // Next cell variables
@@ -48,32 +51,32 @@ public class BacktrackingSudokuSolver {
             iHat = i+1;
             jHat = 1;
         }
+
         // check if cell is empty 
         if (sudoku[i-1][j-1] != 0) {
-            if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize)) {
-                return true;
-            }
-        } else {
+            if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize) == 1) {
+                return 1;
+            } 
+        } 
+        else {
             for (int k = 1; k <= sudoku.length; k++) {
                 // Check if number can be placed
                 if (CanPlace.canPlace(sudoku, i, j, k, nSize)) {
-                    // System.out.println(k);
                     sudoku[i-1][j-1] = k; 
-
-                    // Call method recursively
-                    if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize)) {
-                        return true;
-                    }
+                    if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize) == 1) {
+                        return 1;
+                    } 
                     else {
                         sudoku[i-1][j-1] = 0;
                     }
                 }
             }
         } 
-        return false;
+        return count;
     }
 
     public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         int nSize = in.nextInt();
 
@@ -88,7 +91,7 @@ public class BacktrackingSudokuSolver {
         in.close();
 
         
-        if (isSolved(sudoku, nSize)) {
+        if (isFeasible(sudoku, nSize)) {
             // Run backtracking on
             System.out.println(backtrackingSudokuSolver(sudoku, 1, 1, nSize)); 
 

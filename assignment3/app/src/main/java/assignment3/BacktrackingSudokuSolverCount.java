@@ -6,10 +6,15 @@ import java.util.Scanner;
 
 public class BacktrackingSudokuSolverCount {
     // Static count
-    static int count;
+    protected static int count;
+
+    // Used for jUnit tests  
+    public static void resetCount() {
+        count=0;
+    }
 
     // Check if clues are consistent with constraints (can also check solved sudoku as it is equivalent to a sudoku filled with clues)
-    public static boolean isFeasible(int[][] sudoku, int nSize) {
+    public static boolean isSolved(int[][] sudoku, int nSize) {
         boolean feasible = true;
         for (int i = 0; i < nSize*nSize; i++) {
             if (feasible == true) {
@@ -95,7 +100,7 @@ public class BacktrackingSudokuSolverCount {
         }
         in.close();
   
-        if (isFeasible(sudoku, nSize)) {
+        if (isSolved(sudoku, nSize)) {
             // Run sudoku solver and print solution count
             System.out.println(SudokuSolverCount(sudoku, 1, 1, nSize)); 
         }

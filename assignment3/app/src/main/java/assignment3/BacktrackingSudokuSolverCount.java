@@ -5,6 +5,7 @@ import java.util.Scanner;
 // To run: java -jar app/build/libs/app.jar from root
 
 public class BacktrackingSudokuSolverCount {
+    // Static count
     static int count;
 
     // Check if clues are consistent with constraints (can also check solved sudoku as it is equivalent to a sudoku filled with clues)
@@ -30,7 +31,7 @@ public class BacktrackingSudokuSolverCount {
         return feasible;
     }
 
-    public static int backtrackingSudokuSolver(int[][] sudoku, int i, int j, int nSize) {
+    public static int SudokuSolverCount(int[][] sudoku, int i, int j, int nSize) {
 
         // Check if sudoku is complete (out of grid)
         if (i == sudoku.length+1 && j == 1) {
@@ -55,7 +56,7 @@ public class BacktrackingSudokuSolverCount {
 
         // check if cell is empty 
         if (sudoku[i-1][j-1] != 0) {
-            if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize) > count) {
+            if (SudokuSolverCount(sudoku, iHat, jHat, nSize) > count) {
                 count++;
             } 
         } 
@@ -66,10 +67,12 @@ public class BacktrackingSudokuSolverCount {
                 if (CanPlace.canPlace(sudoku, i, j, k, nSize)) {
                     // System.out.println(i+","+j + " " + k);
                     sudoku[i-1][j-1] = k; 
-                    if (backtrackingSudokuSolver(sudoku, iHat, jHat, nSize) > count) {
+                    if (SudokuSolverCount(sudoku, iHat, jHat, nSize) > count) {
                         count++;
                     } 
                 }
+
+                // Unlike the other backtracker, this algorithm always try all values k in each cell
                 sudoku[i-1][j-1] = 0;
             }
         } 
@@ -94,7 +97,7 @@ public class BacktrackingSudokuSolverCount {
   
         if (isFeasible(sudoku, nSize)) {
             // Run sudoku solver and print solution count
-            System.out.println(backtrackingSudokuSolver(sudoku, 1, 1, nSize)); 
+            System.out.println(SudokuSolverCount(sudoku, 1, 1, nSize)); 
         }
         else {
             System.out.println("Partial solution is inconsistent with constraints");

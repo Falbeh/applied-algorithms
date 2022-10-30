@@ -106,8 +106,7 @@ public class BacktrackingSudokuSolverCount {
         }
         else {
             System.out.println("Partial solution is inconsistent with constraints");
-        }
-        
+        }        
     }
 }
 

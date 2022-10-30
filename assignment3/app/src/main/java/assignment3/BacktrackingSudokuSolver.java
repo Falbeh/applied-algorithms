@@ -34,7 +34,6 @@ public class BacktrackingSudokuSolver {
         if (i == sudoku.length+1 && j == 1) {
             return true;
         }
-        
         // Next cell variables
         int iHat;
         int jHat;
@@ -57,6 +56,7 @@ public class BacktrackingSudokuSolver {
             for (int k = 1; k <= sudoku.length; k++) {
                 // Check if number can be placed
                 if (CanPlace.canPlace(sudoku, i, j, k, nSize)) {
+                    
                     // System.out.println(k);
                     sudoku[i-1][j-1] = k; 
 
@@ -70,6 +70,7 @@ public class BacktrackingSudokuSolver {
                 }
             }
         } 
+        
         return false;
     }
 

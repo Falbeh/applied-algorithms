@@ -1,7 +1,9 @@
-package assignment3;
+package assignment3.ArrayListSolutions;
 
+import java.util.ArrayList;
 import java.util.List;
 // ** This version is using Java collection List and ArrayList ** //
+import java.util.Scanner;
 
 public class CanPlaceArrayList {
     // static int nSize;
@@ -46,8 +48,8 @@ public class CanPlaceArrayList {
     }
 
     public static void main(String[] args) {
-        /* Scanner in = new Scanner(System.in);
-        nSize = in.nextInt();
+        Scanner in = new Scanner(System.in);
+        int nSize = in.nextInt();
         int mQueries = in.nextInt();
 
         List<List<Integer>> sudoku = new ArrayList<>();
@@ -67,11 +69,11 @@ public class CanPlaceArrayList {
             int j = in.nextInt();
             int k = in.nextInt();
 
-            if (CanPlace.canPlace(sudoku, i, j, k) == true) {
+            if (CanPlaceArrayList.canPlaceArrayList(sudoku, i, j, k, nSize) == true) {
                 System.out.println("TRUE");
             } else {
                 System.out.println("FALSE");
             }
-        } */
+        }
     }
 }

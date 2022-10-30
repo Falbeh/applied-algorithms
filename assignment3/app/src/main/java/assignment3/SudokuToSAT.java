@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Scanner; 
 
 public class SudokuToSAT {
     public static void main(String[] args) throws Exception {
@@ -33,7 +33,7 @@ public class SudokuToSAT {
         }
 
         // Creating a file to store DIMACS
-        File cnf = new File("cnf/dimacs.cnf");
+        new File("cnf/dimacs.cnf");
         FileWriter cnfGen = new FileWriter("cnf/dimacs.cnf");
 
         // nVariables and nClauses

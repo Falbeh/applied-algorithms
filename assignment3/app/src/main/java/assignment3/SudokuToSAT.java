@@ -1,18 +1,44 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+package assignment3;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class SudokuToSAT {
     public static void main(String[] args) throws Exception {
 
-        // Read sudoku size n
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(in.readLine());
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+
+        int[][] sudoku = new int[n*n][n*n];
+
+        // Adding sudoku elements from stdin to sudoku list of lists
+        for (int i = 0; i < n * n; i++) {
+            for (int j = 0; j < n * n; j++) {
+                sudoku[i][j] = in.nextInt();
+            }
+        }
+        in.close();
+
+        // Counting clues
+        int countClues=0;
+        for (int i = 0; i < sudoku.length; i++) {
+            for (int j = 0; j < sudoku.length; j++) {
+                if (sudoku[i][j] != 0) {
+                    countClues++;
+                }
+            }
+        }
+
+        // Creating a file to store DIMACS
+        File cnf = new File("cnf/dimacs.cnf");
+        FileWriter cnfGen = new FileWriter("cnf/dimacs.cnf");
 
         // nVariables and nClauses
         int nVariables = (int)(Math.pow(n, 6));
-        int nClauses = (int)(4*Math.pow(n, 4)+(((Math.pow(n, 8))-(Math.pow(n, 6)))/2));
+        int nClauses = (int)(4*Math.pow(n, 4)+(((Math.pow(n, 8))-(Math.pow(n, 6)))/2))+countClues;
 
         // Encode cells as numbers
         int[][][] cells = new int[n*n][n*n][n*n];
@@ -28,7 +54,8 @@ public class SudokuToSAT {
         
 
         // Print dimacs header
-        System.out.println("p cnf " + nVariables + " " + nClauses);
+        cnfGen.write("p cnf " + nVariables + " " + nClauses);
+        cnfGen.write(System.getProperty( "line.separator" ));
 
         // Constraint (i) Every number must occur on every row, yielding n^4 clauses in total
 
@@ -38,10 +65,10 @@ public class SudokuToSAT {
             for (int k = 0; k < n*n; k++) {
                 // for every col 
                 for (int j = 0; j < n*n; j++) {
-                    System.out.print(cells[i][j][k]);
-                    System.out.print(" ");
+                    cnfGen.write(cells[i][j][k] + " ");
                 }
-                System.out.println(0);
+                cnfGen.write("0");
+                cnfGen.write(System.getProperty( "line.separator" ));
             }
         }
 
@@ -53,10 +80,11 @@ public class SudokuToSAT {
             for (int k = 0; k < n*n; k++) {
                 // for every row 
                 for (int i = 0; i < n*n; i++) {
-                    System.out.print(cells[i][j][k]);
-                    System.out.print(" ");
+                    cnfGen.write(cells[i][j][k] + " ");
+                   
                 }
-                System.out.println(0);
+                cnfGen.write("0");
+                cnfGen.write(System.getProperty( "line.separator" ));
             }
         }
 
@@ -74,11 +102,11 @@ public class SudokuToSAT {
                     for (int i = subgridc; i < subgridc+n; i++) {
                         // For every col in subgrid 
                         for (int j = subgridr; j < subgridr+n; j++) {
-                            System.out.print(cells[i][j][k]);
-                            System.out.print(" ");
+                            cnfGen.write(cells[i][j][k] + " ");
                         }
                     }
-                    System.out.println(0);
+                    cnfGen.write("0");
+                    cnfGen.write(System.getProperty( "line.separator" ));
                 }
             }
         }
@@ -90,10 +118,10 @@ public class SudokuToSAT {
            for (int j = 0; j < n*n; j++) {
                // for every number 
                for (int k = 0; k < n*n; k++) {
-                   System.out.print(cells[i][j][k]);
-                   System.out.print(" ");
+                   cnfGen.write(cells[i][j][k] + " ");
                }
-               System.out.println(0);
+               cnfGen.write("0");
+               cnfGen.write(System.getProperty( "line.separator" ));
            }
         }
 
@@ -114,10 +142,25 @@ public class SudokuToSAT {
                 for (int l = 0; l < cells.length; l++) { 
                     int firstEl = combinationNumbers.remove(0);
                     for (int rest = 0; rest < combinationNumbers.size(); rest++) {  
-                        System.out.println(-firstEl + " " + -combinationNumbers.get(rest) + " " + 0);
+                        cnfGen.write(-firstEl + " " + -combinationNumbers.get(rest) + " 0");
+                        cnfGen.write(System.getProperty( "line.separator" ));
                     }
                 } 
            }
         }
+
+        // Constrain (vi) Consider all clues
+        for (int i = 0; i < sudoku.length; i++) {
+            for (int j = 0; j < sudoku.length; j++) {
+                if (sudoku[i][j] != 0) {
+                    int k = sudoku[i][j];
+                    cnfGen.write(cells[i][j][k-1] + " 0");
+                    cnfGen.write(System.getProperty( "line.separator" ));
+                }
+            }
+        }
+        cnfGen.close();
+
     }
 }
+

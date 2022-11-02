@@ -40,6 +40,7 @@ public class ReductionToExactCover {
          * Constraint (ii) column 
          */
         row=0;
+        int startCol = (int)(Math.pow(n, 4));
         // For each row in sudoku
         for (int i = 0; i < sudoku.length; i++) {
             // For each column in sudoku
@@ -47,7 +48,7 @@ public class ReductionToExactCover {
                 // For each possible number in sudoku
                 for (int k = 1; k <= sudoku.length; k++) {
                     if (sudoku[i][j] == k || sudoku[i][j] == 0) {
-                        exactCover[row][(int)Math.pow(n, 4)+(j*n*n+k-1)] = 1;
+                        exactCover[row][startCol+(j*n*n+k-1)] = 1;
                     }
                     row++;
                 }
@@ -58,7 +59,7 @@ public class ReductionToExactCover {
          * Constraint (iii) subgrid
          */
         row=0;
-        int startCol = (int)(2*Math.pow(n, 4));
+        startCol = (int)(2*Math.pow(n, 4));
         // For each row in sudoku
         for (int i = 0; i < sudoku.length; i++) {
             // For each column in sudoku
@@ -74,9 +75,27 @@ public class ReductionToExactCover {
             }
         }
 
+        /**
+         * Constraint (iv) number in i,j
+         */
+        row=0;
+        startCol = (int)(3*Math.pow(n, 4));
+        // For each row in sudoku
+        for (int i = 0; i < sudoku.length; i++) {
+            // For each column in sudoku
+            for (int j = 0; j < sudoku.length; j++) {
+                // For each possible number in sudoku
+                for (int k = 1; k <= sudoku.length; k++) {
+                    if (sudoku[i][j] == k || sudoku[i][j] == 0) {
+                        exactCover[row][startCol+((i*n*n)+j)] = 1;
+                    }
+                    row++;
+                }
+            }
+        }
 
         for (int i = 0; i < exactCover.length; i++) {
-            for (int j = 0; j < exactCover.length; j++) {
+            for (int j = 0; j < exactCover[0].length; j++) {
                 System.out.print(exactCover[i][j]);
             }
             System.out.println();

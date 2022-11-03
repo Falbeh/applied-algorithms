@@ -115,6 +115,6 @@ public class RandomSudokuGenerator {
     }
 
     public static void main(String[] args) {
-        generateRandomUnique(2, 381241);
+        generateRandomUnique(4, 381241);
     }
 }

@@ -24,21 +24,37 @@ public class Node {
     }
 
     public Node hookright(Node node) {
-        node.right=right;
-        node.right.left=node;
-        node.left=this;
-        right=node;
+        node.right = right;
+        node.right.left = node;
+        node.left = this;
+        right = node;
         return node;
     }
 
     public Node hookDown(Node node) {
-        node.up=up;
-        node.up.down=node;
-        node.up=this;
-        down=node;
+        node.down = down;
+        node.down.up = node;
+        node.up = this;
+        down = node;
         return node;
     }
 
+    // Linking and unlinking methods used for auxiliary DLX routines cover and uncover
+    public void unlinkLeftRight() {
+        left.right=right;
+        right.left=left;
+    }
+    public void linkLeftRight() {
+        right.left=this;
+        left.right=this;
+    }
+
+    public void unlinkUpDown() {
+        up.down=down;
+        down.up=up;
+    }
+    public void linkUpDown() {
+        up.down=this;
+        down.up=this;
+    } 
 }
-
-

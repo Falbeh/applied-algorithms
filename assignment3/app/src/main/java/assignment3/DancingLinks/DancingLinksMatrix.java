@@ -1,17 +1,19 @@
-package assignment3;
+package assignment3.DancingLinks;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class DancingLinksMatrix {
-    public static List<List<Node>> createDancingLinks(int[][] binaryMatrix) {
+    public static ColumnNode createDancingLinks(int[][] binaryMatrix) {
         int rowCount = binaryMatrix.length;
         int columnCount = binaryMatrix[0].length;
         // Making root node
         ColumnNode root = new ColumnNode("root");
         List<ColumnNode> columnNodes = new ArrayList<>();
-        List<List<Node>> dancingLinksMatrix = new ArrayList<>();
+        // List<List<Node>> dancingLinksMatrix = new ArrayList<>();
         
         // For each column in binaryMatrix make a column node header and hook it to the right of the previous
         ColumnNode temp=root;
@@ -25,14 +27,14 @@ public class DancingLinksMatrix {
       
         // Add links from binary matrix
         for (int i = 0; i < binaryMatrix.length; i++) {
-            dancingLinksMatrix.add(new ArrayList<Node>());
+            // dancingLinksMatrix.add(new ArrayList<Node>());
             Node prev = null;
             for (int j = 0; j < columnCount; j++) {
                 if (binaryMatrix[i][j] == 1) {
                     // System.out.println(j + columnNodes.get(j).name);
                     ColumnNode cn = columnNodes.get(j);
                     Node n = new Node(cn);
-                    dancingLinksMatrix.get(i).add(n);
+                    // dancingLinksMatrix.get(i).add(n);
                     cn.size++;
                     
                     // Check if there have been a previous node in this row 
@@ -49,16 +51,37 @@ public class DancingLinksMatrix {
             }
         }
         
-        return dancingLinksMatrix;
+        return root;
     }
 
     // Printing column names associated to all nodes 
-    public static void printDacingLinks(List<List<Node>> dancingLinks) {
+   /*  public static void printDacingLinks(List<List<Node>> dancingLinks) {
         for (int i = 0; i < dancingLinks.size(); i++) {
             for (int j = 0; j < dancingLinks.get(i).size(); j++) {
                 System.out.print(dancingLinks.get(i).get(j).column.name + " ");
             }
             System.out.println();
+        }
+    } */
+
+    // Printing column names associated to all nodes  
+    public static void printDacingLinks(ColumnNode h) {
+        // Using a HashSet to see if Node has been printed already
+        Set<Node> printedNodes = new HashSet<>();
+        // iterate over column nodes
+        for (ColumnNode j = (ColumnNode)h.right; j != h; j=(ColumnNode)j.right) {
+            // iterate over nodes associated to column nodes (down)
+            for (Node i = j.down; i != j; i=i.down) {
+                // Checking if node has been printed already
+                if (!printedNodes.contains(i)) {
+                    // Printing all nodes on the row and adding them to HashSet
+                    for (Node n = i; !printedNodes.contains(n); n=n.right) {
+                        printedNodes.add(n);
+                        System.out.print(n.column.name);
+                    }
+                    System.out.println();
+                }
+            }
         }
     }
 
@@ -78,7 +101,7 @@ public class DancingLinksMatrix {
 
         // Calling methods
         printDacingLinks(createDancingLinks(binaryMatrix));
-
+        
     }
 }
  

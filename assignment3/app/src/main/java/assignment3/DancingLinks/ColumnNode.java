@@ -1,4 +1,4 @@
-package assignment3;
+package assignment3.DancingLinks;
 
 public class ColumnNode extends Node {
     public int size;

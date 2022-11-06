@@ -4,6 +4,10 @@
 package assignment3;
 
 import org.junit.Test;
+
+import assignment3.Backtracking.BacktrackingSudokuSolver;
+import assignment3.Backtracking.BacktrackingSudokuSolverCount;
+
 import static org.junit.Assert.*;
 
 public class BacktrackingSudokuTest {

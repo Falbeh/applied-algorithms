@@ -1,4 +1,4 @@
-package assignment3;
+package assignment3.Backtracking;
 
 public class CanPlace {
     public static boolean canPlace(int[][] sudoku, int i, int j, int k, int nSize) {

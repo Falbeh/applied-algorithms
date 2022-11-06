@@ -67,8 +67,8 @@ public class DancingLinksTest {
         expectedResult.add(new ArrayList<>());
         expectedResult.add(new ArrayList<>());
         expectedResult.get(0).add(2);
-        expectedResult.get(1).add(3);
         expectedResult.get(1).add(1);
+        expectedResult.get(1).add(3);
         // This call is expected to return the list [[2],[1,3]]
         assertEquals(expectedResult, DLXSearch.search(DancingLinksMatrix.createDancingLinks(new int[][] {
             {1,0,1},
@@ -81,13 +81,14 @@ public class DancingLinksTest {
         expectedResult.add(new ArrayList<>());
         expectedResult.add(new ArrayList<>());
         expectedResult.add(new ArrayList<>());
-        expectedResult.get(0).add(6);
         expectedResult.get(0).add(3);
         expectedResult.get(0).add(5);
-        expectedResult.get(1).add(7);
-        expectedResult.get(1).add(2);
+        expectedResult.get(0).add(6);
         expectedResult.get(2).add(1);
+        expectedResult.get(1).add(2);
         expectedResult.get(2).add(4);
+        expectedResult.get(1).add(7);
+        
         // This call is expected to return the list [[6, 3, 5], [7, 2], [1, 4]]
         assertEquals(expectedResult, DLXSearch.search(DancingLinksMatrix.createDancingLinks(new int[][] {
             {0, 0, 1, 0, 1, 1, 0},

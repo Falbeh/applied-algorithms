@@ -5,6 +5,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DancingLinksSudokuSolver {
+
+    public static void DLXSolver(int[][] sudoku, int nSize) {
+        // 2. Converting sudoku to exact cover binary matrix
+        int[][] exactCoverMatrix = SudokuToExactCover.reductionToExactCover(sudoku, nSize);
+
+        // 3. Construct dancing links matrix from exact cover matrix and save root ColumnNode in variable h
+        ColumnNode h = DancingLinksMatrix.createDancingLinks(exactCoverMatrix);
+
+        // 4. Applying DLX and saving DLX result as list of list
+        List<Node> S = new ArrayList<>();
+        List<List<Integer>> DLX = DLXSearch.search(h, S);
+
+        // 5. Decode DLX back into solved sudoku solution
+        ExactCoverToSudoku.exactCoverToSudoku(nSize, DLX);
+
+    }
     public static void main(String[] args) {
         // 1. Reading the sudoku as input
         Scanner in = new Scanner(System.in);
@@ -20,20 +36,7 @@ public class DancingLinksSudokuSolver {
         }
         in.close();
 
-        // 2. Converting sudoku to exact cover binary matrix
-        int[][] exactCoverMatrix = SudokuToExactCover.reductionToExactCover(sudoku, nSize);
-
-        // 3. Construct dancing links matrix from exact cover matrix and save root ColumnNode in variable h
-        ColumnNode h = DancingLinksMatrix.createDancingLinks(exactCoverMatrix);
-
-        // 4. Applying DLX and saving DLX result as list of list
-        List<Node> S = new ArrayList<>();
-        List<List<Integer>> DLX = DLXSearch.search(h, S);
-
-        // 5. Decode DLX back into solved sudoku solution
-        ExactCoverToSudoku.exactCoverToSudoku(nSize, DLX);
-        
-
+        DLXSolver(sudoku,nSize);
     }
 }
 

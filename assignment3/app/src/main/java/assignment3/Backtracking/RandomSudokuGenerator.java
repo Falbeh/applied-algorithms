@@ -1,4 +1,4 @@
-package assignment3;
+package assignment3.Backtracking;
 
 import java.util.Random;
 

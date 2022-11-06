@@ -26,11 +26,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'assignment3.BacktrackingSudokuSolver'
+    mainClass = 'assignment3.Horserace'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'assignment3.BacktrackingSudokuSolver'
+        attributes 'Main-Class': 'assignment3.Horserace'
     }
 } 

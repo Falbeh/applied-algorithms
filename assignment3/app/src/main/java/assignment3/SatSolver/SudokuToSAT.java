@@ -1,4 +1,4 @@
-package assignment3;
+package assignment3.SatSolver;
 
 import java.io.File;
 import java.io.FileWriter;

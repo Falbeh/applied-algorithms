@@ -12,7 +12,6 @@ public class DancingLinksMatrix {
         // Making root node
         ColumnNode root = new ColumnNode("root");
         List<ColumnNode> columnNodes = new ArrayList<>();
-        // List<List<Node>> dancingLinksMatrix = new ArrayList<>();
         
         // For each column in binaryMatrix make a column node header and hook it to the right of the previous
         ColumnNode temp=root;
@@ -26,11 +25,9 @@ public class DancingLinksMatrix {
       
         // Add links from binary matrix
         for (int i = 0; i < binaryMatrix.length; i++) {
-            // dancingLinksMatrix.add(new ArrayList<Node>());
             Node prev = null;
             for (int j = 0; j < columnCount; j++) {
                 if (binaryMatrix[i][j] == 1) {
-                    // System.out.println(j + columnNodes.get(j).name);
                     ColumnNode cn = columnNodes.get(j);
                     Node n = new Node(cn);
                     // dancingLinksMatrix.get(i).add(n);

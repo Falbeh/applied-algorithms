@@ -95,12 +95,12 @@ public class SudokuToExactCover {
             }
         }
 
-        for (int i = 0; i < exactCover.length; i++) {
+        /* for (int i = 0; i < exactCover.length; i++) {
             for (int j = 0; j < exactCover[0].length; j++) {
                 System.out.print(exactCover[i][j]);
             }
             System.out.println();
-        }
+        } */
 
         return exactCover;
     }

@@ -45,25 +45,31 @@ public class ProcedureDLX {
         cn.linkLeftRight();
     }
 
-    public static void print(List<Node> S) {
+    public static List<List<Integer>> print(List<Node> S) {
+        // List of list to return result
+        List<List<Integer>> result = new ArrayList<>();
 
-        // List<List<Node>> result = new ArrayList<>();
+        // Copy of S to avoid changing S 
         List<Node> Sresult = new ArrayList<>();
         for (int i = 0; i < S.size(); i++) {
             Sresult.add(S.get(i));
         }
+        // count used to add to correct index of result list
+        int count = 0;
 
         // Removing the element at the last index of the list
         while (!Sresult.isEmpty()) {
-            // System.out.println("hm");
             Node n = Sresult.remove(Sresult.size()-1); 
             Node j = n;
+            result.add(new ArrayList<>());
             do {
-                System.out.print(j.column.name);
+                // System.out.print(j.column.name);
+                result.get(count).add(Integer.parseInt(j.column.name));
                 j = j.right;
             }while(j!=n);
-            System.out.println();
+            count++;
+            // System.out.println();
         }
-        // return result;
+        return result;
     }
 }

@@ -3,14 +3,15 @@ package assignment3.DancingLinks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DLX {
+public class DLXSearchCount {
+    // List to save all solutions in
+    private List<List<List<Integer>>> solutionBucket = new ArrayList<>();
 
     // Parameters are ColumnNode (root) and the stack S
-    public static void search(ColumnNode h, List<Node> S) {
-        // If root node is alone in columns then finish
+    public int search(ColumnNode h, List<Node> S, int count) {
         if (h.right == h) {
-            ProcedureDLX.print(S); // Printing
-            // Need to terminate here
+            // If solution is found add it to the bucket of solutions
+            solutionBucket.add(ProcedureDLX.print(S));
         }
         else {
             ColumnNode c = ProcedureDLX.choose(h);
@@ -23,9 +24,9 @@ public class DLX {
                 for (Node j = r.right; j != r; j=j.right) {
                     ProcedureDLX.cover(j.column);
                 }
-                // Recursive call
-                search(h, S);
-
+                // Recursive call returning first possible result
+                search(h, S, count);
+            
                 // Going back 
                 S.remove(S.size()-1);
                 c = r.column;
@@ -36,6 +37,8 @@ public class DLX {
             }
             ProcedureDLX.unCover(c);
         }
+        // Finally return the solution bucket size
+        return solutionBucket.size();
     }
 
     public static void main(String[] args) {
@@ -46,17 +49,22 @@ public class DLX {
 
         // Call DancingLinksMatrix
         ColumnNode h = DancingLinksMatrix.createDancingLinks(new int[][] {
-           /*  {1,0,1},
+            {1,0,1},
             {1,1,0},
-            {0,1,0} */
-            {0, 0, 1, 0, 1, 1, 0},
+            {0,1,0},
+            {0,0,1}
+            /* {0, 0, 1, 0, 1, 1, 0},
             {1, 0, 0, 1, 0, 0, 1},
             {0, 1, 1, 0, 0, 1, 0},
             {1, 0, 0, 1, 0, 0, 0},
             {0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 1, 1, 0, 1}
+            {0, 0, 0, 1, 1, 0, 1} */
         });
 
-        search(h, S);
+        DLXSearchCount dlxsc = new DLXSearchCount();
+
+        int count = dlxsc.search(h, S, 0);
+
+        System.out.println(count);
     }
 }

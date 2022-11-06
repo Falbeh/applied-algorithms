@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class DancingLinksMatrix {
     public static ColumnNode createDancingLinks(int[][] binaryMatrix) {
-        int rowCount = binaryMatrix.length;
         int columnCount = binaryMatrix[0].length;
         // Making root node
         ColumnNode root = new ColumnNode("root");

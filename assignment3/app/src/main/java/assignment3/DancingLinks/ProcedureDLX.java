@@ -1,6 +1,7 @@
 package assignment3.DancingLinks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProcedureDLX {
@@ -67,6 +68,7 @@ public class ProcedureDLX {
                 result.get(count).add(Integer.parseInt(j.column.name));
                 j = j.right;
             }while(j!=n);
+            Collections.sort(result.get(count));
             count++;
             // System.out.println();
         }

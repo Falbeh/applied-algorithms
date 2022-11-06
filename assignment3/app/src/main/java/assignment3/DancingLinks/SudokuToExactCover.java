@@ -121,7 +121,7 @@ public class SudokuToExactCover {
         in.close();
 
         reductionToExactCover(sudoku, nSize);
-
+        
         
     }
 }

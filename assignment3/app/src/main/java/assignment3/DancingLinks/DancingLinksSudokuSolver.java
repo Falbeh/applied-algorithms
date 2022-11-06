@@ -31,8 +31,16 @@ public class DancingLinksSudokuSolver {
         List<List<Integer>> DLX = DLXSearch.search(h, S);
 
         // 5. Decode DLX back into solved sudoku solution
+        ExactCoverToSudoku.exactCoverToSudoku(nSize, DLX);
         
-        System.out.println(DLX);
 
     }
 }
+
+/* 
+2
+0 0 0 3
+0 4 0 0
+0 1 0 0
+0 3 2 0
+ */

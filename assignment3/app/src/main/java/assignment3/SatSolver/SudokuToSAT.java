@@ -7,21 +7,8 @@ import java.util.List;
 import java.util.Scanner; 
 
 public class SudokuToSAT {
-    public static void main(String[] args) throws Exception {
 
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-
-        int[][] sudoku = new int[n*n][n*n];
-
-        // Adding sudoku elements from stdin to sudoku list of lists
-        for (int i = 0; i < n * n; i++) {
-            for (int j = 0; j < n * n; j++) {
-                sudoku[i][j] = in.nextInt();
-            }
-        }
-        in.close();
-
+    public static void sudokuToSAT(int[][] sudoku, int n) throws Exception {
         // Counting clues
         int countClues=0;
         for (int i = 0; i < sudoku.length; i++) {
@@ -33,8 +20,8 @@ public class SudokuToSAT {
         }
 
         // Creating a file to store DIMACS
-        new File("cnf/dimacs.cnf");
-        FileWriter cnfGen = new FileWriter("cnf/dimacs.cnf");
+        new File("cnf/UniqueSolution/n5dimacs.cnf");
+        FileWriter cnfGen = new FileWriter("cnf/UniqueSolution/n5dimacs.cnf");
 
         // nVariables and nClauses
         int nVariables = (int)(Math.pow(n, 6));
@@ -160,6 +147,25 @@ public class SudokuToSAT {
             }
         }
         cnfGen.close();
+
+    }
+    public static void main(String[] args) throws Exception {
+
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+
+        int[][] sudoku = new int[n*n][n*n];
+
+        // Adding sudoku elements from stdin to sudoku list of lists
+        for (int i = 0; i < n * n; i++) {
+            for (int j = 0; j < n * n; j++) {
+                sudoku[i][j] = in.nextInt();
+            }
+        }
+        in.close();
+
+        sudokuToSAT(sudoku, n);
+        
 
     }
 }

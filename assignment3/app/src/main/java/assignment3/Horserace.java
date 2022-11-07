@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import assignment3.Backtracking.BacktrackingSudokuSolver;
 import assignment3.DancingLinks.DancingLinksSudokuSolver;
+import assignment3.SatSolver.SudokuToSAT;
 
 public class Horserace {
    
@@ -12,7 +13,7 @@ public class Horserace {
       
         try {
             /* File file = new File("sudokusWithOneUniqueSolution/16x16.txt"); */
-            File file = new File("sudokusWithManySolutions/4x4.txt");
+            File file = new File("sudokusWithOneUniqueSolution/25x25.txt");
             Scanner in = new Scanner(file);
 
             int n = in.nextInt();
@@ -27,7 +28,8 @@ public class Horserace {
             System.out.println(n);
             in.close();
             /* BacktrackingSudokuSolver.backtrackingSudokuSolver(sudoku,1,1,n); */
-            DancingLinksSudokuSolver.DLXSolver(sudoku, n);
+            /* DancingLinksSudokuSolver.DLXSolver(sudoku, n); */
+            SudokuToSAT.sudokuToSAT(sudoku, n);
             System.out.println("Algorithm succesfully ran");
         } catch (Exception e) {
             System.out.println("File not found");

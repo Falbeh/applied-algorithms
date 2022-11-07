@@ -6,7 +6,7 @@ import numpy as np # type: ignore
 def solve():
         
     # declare .cnf file
-    filename = f'cnf/dimacs.cnf'
+    filename = f'cnf/ManySolution/n4dimacs.cnf'
     
     # invoke kissat
     cmd = ["kissat/build/kissat", "-q", filename]

@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class DancingLinksSudokuSolver {
 
-    public static void DLXSolver(int[][] sudoku, int nSize) {
+    public static int[][] DLXSolver(int[][] sudoku, int nSize) {
         // 2. Converting sudoku to exact cover binary matrix
         int[][] exactCoverMatrix = SudokuToExactCover.reductionToExactCover(sudoku, nSize);
 
@@ -18,8 +18,7 @@ public class DancingLinksSudokuSolver {
         List<List<Integer>> DLX = DLXSearch.search(h, S);
 
         // 5. Decode DLX back into solved sudoku solution
-        ExactCoverToSudoku.exactCoverToSudoku(nSize, DLX);
-
+        return ExactCoverToSudoku.exactCoverToSudoku(nSize, DLX);
     }
     public static void main(String[] args) {
         // 1. Reading the sudoku as input

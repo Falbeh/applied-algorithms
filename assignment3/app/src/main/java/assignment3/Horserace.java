@@ -12,7 +12,7 @@ public class Horserace {
       
         try {
             /* File file = new File("sudokusWithOneUniqueSolution/16x16.txt"); */
-            File file = new File("sudokusWithOneUniqueSolution/16x16.txt");
+            File file = new File("sudokusWithManySolutions/4x4.txt");
             Scanner in = new Scanner(file);
 
             int n = in.nextInt();

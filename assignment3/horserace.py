@@ -7,7 +7,7 @@ import numpy as np  # type: ignore
 import time
 import csv
 
-TIMEOUT = 30
+TIMEOUT = 1200
 
 # run the given jar package ,
 # provide the given arg as the command - line
@@ -55,7 +55,7 @@ if __name__ == '__main__':
    #     writer.writerow({
    #         'running time': input
    #     }) 
-    with open('results/n4DancingLinks.csv', 'w') as f:
+    with open('resultsManySolutions/n2DancingLinks.csv', 'w') as f:
        writer = csv.DictWriter(f,
        fieldnames=['running time'])
        writer.writeheader()

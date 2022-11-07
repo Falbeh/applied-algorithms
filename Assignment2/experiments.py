@@ -30,7 +30,6 @@ if __name__ == '__main__':
             """ writer.writerow({
                 'n': n
             })  """
-
         
         ## GENERATE HISTOGRAM PLOT WITH RESULTS ## 
         plt.hist(resultsInt, density=False, bins=24)  # density=False makes count
